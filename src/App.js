@@ -1,21 +1,32 @@
-// import logo from './logo.svg';
 import "./App.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { Route, Routes } from "react-router-dom";
+
+// Import Pages
+import Login from "./pages/Login";
 
 function App() {
   return (
-    <Navbar bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand>CookiesMe</Navbar.Brand>
-        <Nav className="justify-content-end">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/register">Register</Nav.Link>
-          <Nav.Link href="/login">Log in</Nav.Link>
-          <Nav.Link href="/profile">Profile</Nav.Link>
-          <Nav.Link href="/products">Products</Nav.Link>
-        </Nav>
-      </Container>
-    </Navbar>
+    <>
+      {/* Navbar */}
+      <Navbar className="mb-4" bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="/">CookiesMe</Navbar.Brand>
+          <Nav className="justify-content-end">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/register">Register</Nav.Link>
+            <Nav.Link href="/login">Log in</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
+            <Nav.Link href="/products">Products</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+
+      {/* Pages Router */}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </>
   );
 }
 
