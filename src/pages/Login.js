@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";import axios from "axios";
 import { Card, Container, Form, Alert, Button } from "react-bootstrap";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -39,8 +38,8 @@ function Login() {
 
   return (
     <Container>
-      <Card>
-        <h2>Log in</h2>
+      <Card className="boarder boarder-primary shadow rounded mt-5 mx-auto p-3 w-25">
+        <h2 className="mb-3">Log in</h2>
 
         {/* Display alert if log in success */}
         {loginSuccess ? (
@@ -48,14 +47,14 @@ function Login() {
             Log in Succeed!
           </Alert>
         ) : (
-          <Alert key={"warning"} variant={"warning"}>
+          <Alert key={"danger"} variant={"danger"}>
             Log in Failed!
           </Alert>
         )}
 
         <Form>
           {/* Email input */}
-          <Form.Group controlId="formLocalEmail">
+          <Form.Group className="shadow-sm " controlId="formLocalEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
@@ -67,7 +66,7 @@ function Login() {
           </Form.Group>
 
           {/* Password Input */}
-          <Form.Group controlId="formLocalPassword">
+          <Form.Group className="shadow-sm mt-2" controlId="formLocalPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -77,15 +76,16 @@ function Login() {
               onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
-          <Button
-            variant="primary"
-            type="submit"
-            onClick={(event) => {
-              handleSubmit(event);
-            }}>
-            Login
-          </Button>
         </Form>
+        <Button
+          className="shadow-sm mx-auto w-50 mt-3"
+          variant="primary"
+          type="submit"
+          onClick={(event) => {
+            handleSubmit(event);
+          }}>
+          Login
+        </Button>
       </Card>
     </Container>
   );

@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       {/* Navbar */}
-      <Navbar className="mb-4" bg="dark" variant="dark">
+      <Navbar className="shadow-sm" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/">CookiesMe</Navbar.Brand>
           <Nav className="justify-content-end">
