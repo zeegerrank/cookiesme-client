@@ -1,10 +1,41 @@
 import React, { useState } from "react";
-import { Card, Container, Form, Alert } from "react-bootstrap";
+import axios from "axios";
+import { Card, Container, Form, Alert, Button } from "react-bootstrap";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginSuccess, setLoginSuccess] = useState(false);
+
+  const handleSubmit = (event) => {
+    // Prevent page from refreshing after submit
+    event.preventDefault();
+
+    // Set axios configuration
+    const configuration = {
+      method: "post",
+      url: "https://cookiesme-server.onrender.com/auth/login",
+      data: { email, password },
+    };
+
+    // Call API Login endpoint
+    axios(configuration)
+      .then((result) => {
+        // Login Success
+        setLoginSuccess(true);
+
+        // Set Cookie
+        cookies.set("TOKEN", result.data.token, { path: "/" });
+
+        // Redirect User to Home page
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        error = new Error();
+      });
+  };
 
   return (
     <Container>
@@ -46,6 +77,14 @@ function Login() {
               onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={(event) => {
+              handleSubmit(event);
+            }}>
+            Login
+          </Button>
         </Form>
       </Card>
     </Container>
