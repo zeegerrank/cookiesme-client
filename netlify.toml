@@ -7,3 +7,8 @@
     from="/*"
     to="/index.html"
     status=200
+
+[[redirect]]
+    from="/login"
+    to="/login"
+    status=200
