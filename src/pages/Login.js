@@ -5,12 +5,15 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 function Login() {
+  // Data send to API
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Login success indicator
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  // State for loading button
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event) => {
@@ -62,14 +65,12 @@ function Login() {
       <Card className="boarder boarder-primary shadow rounded mt-5 mx-auto p-3 w-50">
         <h2 className="mb-3">Log in</h2>
 
-        {/* Display alert if log in success */}
-
+        {/* Login indicator */}
         {errorMsg && (
           <Alert key={"danger"} variant={"danger"}>
             {errorMsg}
           </Alert>
         )}
-
         {loginSuccess && (
           <Alert key={"success"} variant={"success"}>
             Login Success
@@ -101,6 +102,8 @@ function Login() {
             />
           </Form.Group>
         </Form>
+
+        {/* Submit Button */}
         {!loading ? (
           <Button
             className="shadow-sm mx-auto w-50 mt-3"
