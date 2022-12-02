@@ -56,7 +56,7 @@ function Login() {
         setErrorMsg(err.message);
 
         // Cancel Loading Button
-        return setLoading(false);
+        setLoading(false);
       });
   };
 
