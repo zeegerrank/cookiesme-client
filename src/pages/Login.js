@@ -1,4 +1,5 @@
-import React, { useState } from "react";import axios from "axios";
+import React, { useState } from "react";
+import axios from "axios";
 import { Card, Container, Form, Alert, Button } from "react-bootstrap";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -34,7 +35,7 @@ function Login() {
         window.location.href = "/";
       })
       .catch((error) => {
-        setErrorMsg(error.massage);
+        setErrorMsg(error);
         setLoginSuccess(false);
       });
   };
