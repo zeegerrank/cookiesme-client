@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";import axios from "axios";
 import { Card, Container, Form, Alert, Button } from "react-bootstrap";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -31,18 +30,24 @@ function Login() {
         // Set Cookie
         cookies.set("TOKEN", result.data.token, { path: "/" });
 
+        // Clear the error massage
+        setErrorMsg("");
+
         // Redirect User to Home page
         window.location.href = "/";
       })
       .catch((error) => {
-        setErrorMsg(error);
-        setLoginSuccess(false);
+        // Where the error massage comes from in frontend console
+        const err = error.response.data;
+
+        // Set error massage
+        setErrorMsg(err.message);
       });
   };
 
   return (
     <Container>
-      <Card className="boarder boarder-primary shadow rounded mt-5 mx-auto p-3 w-25">
+      <Card className="boarder boarder-primary shadow rounded mt-5 mx-auto p-3 w-50">
         <h2 className="mb-3">Log in</h2>
 
         {/* Display alert if log in success */}
@@ -55,7 +60,7 @@ function Login() {
 
         {loginSuccess && (
           <Alert key={"success"} variant={"success"}>
-            Success
+            Login Success
           </Alert>
         )}
 
