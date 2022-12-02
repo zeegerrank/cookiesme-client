@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import React, { useState } from "react";import { Card, Container, Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 
 export default function Register() {
@@ -24,7 +23,7 @@ export default function Register() {
     // set configurations
     const configuration = {
       method: "post",
-      url: "https://nodejs-mongodb-auth-app-zeeger.herokuapp.com/register",
+      url: "https://cookiesme-server.onrender.com/auth/register",
       data: {
         email,
         password,
@@ -44,6 +43,7 @@ export default function Register() {
         setLoading(false);
       })
       .catch((error) => {
+        console.log(error);
         // Where the error massage comes from in frontend console
         const err = error.response.data;
 
@@ -56,44 +56,46 @@ export default function Register() {
   };
 
   return (
-    <>
-      <h2>Register</h2>
-      <Form onSubmit={(event) => handleSubmit(event)}>
-        {/* Register indicator */}
-        {errorMsg && (
-          <Alert key={"danger"} variant={"danger"}>
-            {errorMsg}
-          </Alert>
-        )}
-        {registerSuccess && (
-          <Alert key={"success"} variant={"success"}>
-            Login Success
-          </Alert>
-        )}
+    <Container>
+      <Card className="boarder boarder-primary shadow rounded mt-5 mx-auto p-3 w-50">
+        <h2>Register</h2>
+        <Form onSubmit={(event) => handleSubmit(event)}>
+          {/* Register indicator */}
+          {errorMsg && (
+            <Alert key={"danger"} variant={"danger"}>
+              {errorMsg}
+            </Alert>
+          )}
+          {registerSuccess && (
+            <Alert key={"success"} variant={"success"}>
+              Register Success
+            </Alert>
+          )}
 
-        {/* email input*/}
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="Enter email"
-          />
-        </Form.Group>
+          {/* email input*/}
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="Enter email"
+            />
+          </Form.Group>
 
-        {/* password input*/}
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="Password"
-          />
-        </Form.Group>
+          {/* password input*/}
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Password"
+            />
+          </Form.Group>
+        </Form>
 
         {/* Submit Button */}
         {!loading ? (
@@ -104,7 +106,7 @@ export default function Register() {
             onClick={(event) => {
               handleSubmit(event);
             }}>
-            Login
+            Register
           </Button>
         ) : (
           <Button className="shadow-sm mx-auto w-50 mt-3" variant="primary">
@@ -116,7 +118,7 @@ export default function Register() {
             Loading...
           </Button>
         )}
-      </Form>
-    </>
+      </Card>
+    </Container>
   );
 }
