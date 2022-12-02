@@ -8,7 +8,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const [loginSuccess, setLoginSuccess] = useState(false);
-  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = (event) => {
     // Prevent page from refreshing after submit
@@ -26,17 +26,16 @@ function Login() {
       .then((result) => {
         // Login Success
         setLoginSuccess(true);
-        setError(false);
+
         // Set Cookie
         cookies.set("TOKEN", result.data.token, { path: "/" });
 
         // Redirect User to Home page
         window.location.href = "/";
       })
-      .catch((err) => {
-        setError(true);
+      .catch((error) => {
+        setErrorMsg(error.massage);
         setLoginSuccess(false);
-        err = new err();
       });
   };
 
@@ -46,20 +45,17 @@ function Login() {
         <h2 className="mb-3">Log in</h2>
 
         {/* Display alert if log in success */}
-        {loginSuccess && !error ? (
-          <Alert key={"success"} variant={"success"}>
-            Log in Succeed!
+
+        {errorMsg && (
+          <Alert key={"danger"} variant={"danger"}>
+            {errorMsg}
           </Alert>
-        ) : (
-          <></>
         )}
 
-        {error && !loginSuccess ? (
-          <Alert key={"danger"} variant={"danger"}>
-            Fail to login!
+        {loginSuccess && (
+          <Alert key={"success"} variant={"success"}>
+            Success
           </Alert>
-        ) : (
-          <></>
         )}
 
         <Form>
