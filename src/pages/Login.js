@@ -1,4 +1,5 @@
-import React, { useState } from "react";import axios from "axios";
+import React, { useState } from "react";
+import axios from "axios";
 import { Card, Container, Form, Alert, Button } from "react-bootstrap";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -10,9 +11,14 @@ function Login() {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = (event) => {
     // Prevent page from refreshing after submit
     event.preventDefault();
+
+    // Loading Button
+    setLoading(true);
 
     // Set axios configuration
     const configuration = {
@@ -33,6 +39,9 @@ function Login() {
         // Clear the error massage
         setErrorMsg("");
 
+        // Cancel Loading Button
+        setLoading(false);
+
         // Redirect User to Home page
         window.location.href = "/";
       })
@@ -42,6 +51,9 @@ function Login() {
 
         // Set error massage
         setErrorMsg(err.message);
+
+        // Cancel Loading Button
+        return setLoading(false);
       });
   };
 
@@ -89,15 +101,26 @@ function Login() {
             />
           </Form.Group>
         </Form>
-        <Button
-          className="shadow-sm mx-auto w-50 mt-3"
-          variant="primary"
-          type="submit"
-          onClick={(event) => {
-            handleSubmit(event);
-          }}>
-          Login
-        </Button>
+        {!loading ? (
+          <Button
+            className="shadow-sm mx-auto w-50 mt-3"
+            variant="primary"
+            type="submit"
+            onClick={(event) => {
+              handleSubmit(event);
+            }}>
+            Login
+          </Button>
+        ) : (
+          <Button className="shadow-sm mx-auto w-50 mt-3" variant="primary">
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"></span>
+            <span> </span>
+            Loading...
+          </Button>
+        )}
       </Card>
     </Container>
   );
