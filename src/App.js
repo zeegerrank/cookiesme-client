@@ -24,6 +24,7 @@ function App() {
 
       {/* Pages Router */}
       <Routes>
+        <Route index path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </>
