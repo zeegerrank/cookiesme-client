@@ -55,13 +55,15 @@ export default function Register() {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
         // Where the error massage comes from in frontend console
         const { errors } = error.response.data;
         const errorArrays = errors;
 
         // Set error massage
         setErrorMsg(errorArrays);
+
+        // Register display clear
+        setRegisterSuccess(false);
 
         // Cancel Loading Button
         setLoading(false);
@@ -70,28 +72,17 @@ export default function Register() {
 
   return (
     <Container className="pt-3">
-      {/* Register indicator */}
-
-      {/* Success display here*/}
-      {registerSuccess && (
-        <Alert className="w-75 mx-auto" variant={"success"}>
-          Register Success
-        </Alert>
-      )}
-
-      {/* Error display here */}
-      {errorMsg &&
-        //   Error massage was sent as arrays
-        //  Get all the massage my map index method
-        errorMsg.map((err, index) => (
-          <Alert className="w-75 mx-auto" key={err.msg} variant={"danger"}>
-            {err.msg}
-          </Alert>
-        ))}
-
       {/* Card which contain register form */}
-      <Card className="boarder boarder-primary shadow rounded mx-auto p-3 w-50">
+      <Card className="boarder boarder-primary shadow rounded mb-3 mx-auto p-3 w-75">
         <h2>Register</h2>
+
+        {/* Success display here*/}
+        {registerSuccess && (
+          <Alert className="w-100" variant={"success"}>
+            Register Success
+          </Alert>
+        )}
+
         <Form onSubmit={(event) => handleSubmit(event)}>
           {/* email input*/}
           <Form.Group controlId="formBasicEmail">
@@ -107,7 +98,7 @@ export default function Register() {
           </Form.Group>
 
           {/* password input*/}
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group className="mt-2" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -141,6 +132,16 @@ export default function Register() {
           </Button>
         )}
       </Card>
+
+      {/* Error display here */}
+      {errorMsg &&
+        //   Error massage was sent as arrays
+        //  Get all the massage my map index method
+        errorMsg.map((err, index) => (
+          <Alert className="w-100 mx-auto" key={err.msg} variant={"danger"}>
+            {err.msg}
+          </Alert>
+        ))}
     </Container>
   );
 }

@@ -37,7 +37,10 @@ function Login() {
         setLoginSuccess(true);
 
         // Set Cookie
-        cookies.set("TOKEN", result.data.token, { path: "/" });
+        cookies.set("ACCESS_TOKEN", result.data.token, {
+          path: "/",
+          maxAge: 60 * 60 * 12,
+        });
 
         // Clear the error massage
         setErrorMsg("");
@@ -50,10 +53,11 @@ function Login() {
       })
       .catch((error) => {
         // Where the error massage comes from in frontend console
-        const err = error.response.data;
+        const { errors } = error.response.data;
+        const errorArrays = errors;
 
         // Set error massage
-        setErrorMsg(err.message);
+        setErrorMsg(errorArrays);
 
         // Cancel Loading Button
         setLoading(false);
@@ -65,12 +69,7 @@ function Login() {
       <Card className="boarder boarder-primary shadow rounded mt-5 mx-auto p-3 w-50">
         <h2 className="mb-3">Log in</h2>
 
-        {/* Login indicator */}
-        {errorMsg && (
-          <Alert key={"danger"} variant={"danger"}>
-            {errorMsg}
-          </Alert>
-        )}
+        {/* Success display here */}
         {loginSuccess && (
           <Alert key={"success"} variant={"success"}>
             Login Success
@@ -125,6 +124,16 @@ function Login() {
           </Button>
         )}
       </Card>
+
+      {/* Error display here */}
+      {errorMsg &&
+        //   Error massage was sent as arrays
+        //  Get all the massage my map index method
+        errorMsg.map((err, index) => (
+          <Alert className="w-100 mx-auto" key={err.msg} variant={"danger"}>
+            {err.msg}
+          </Alert>
+        ))}
     </Container>
   );
 }
