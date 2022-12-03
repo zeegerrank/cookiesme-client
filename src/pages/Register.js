@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Card, Container, Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 
@@ -15,6 +15,15 @@ export default function Register() {
   // State for loading button
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState();
+
+  // Set focus to email input input box
+  const emailRef = useRef();
+  useEffect(() => {
+    emailRef.current.focus();
+    return () => {
+      return;
+    };
+  }, []);
 
   const handleSubmit = (event) => {
     // prevent the form from refreshing the whole page
@@ -91,6 +100,7 @@ export default function Register() {
               type="email"
               name="email"
               value={email}
+              ref={emailRef}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="Enter email"
             />
